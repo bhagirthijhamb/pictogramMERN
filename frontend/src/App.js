@@ -10,6 +10,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 // Components
 import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 
 const theme = createMuiTheme({
   palette: {
@@ -59,6 +60,7 @@ function App() {
         <div className="app">
           <Navbar />
           <Routing />
+          <Footer />
         </div>
       </Router>
     </MuiThemeProvider>

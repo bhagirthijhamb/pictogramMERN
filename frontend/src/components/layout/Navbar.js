@@ -94,32 +94,32 @@ const Navbar = (props) => {
   return(
     <AppBar>
       <Toolbar>
-        <div>
-          {/* <Link> */}
-            <Typography>Pictogram</Typography>
-          {/* </Link> */}
-          <div>
-            <div>
+        <div className={classes.navContainer}>
+          <Link>
+            <Typography className={classes.title} className="brand-logo" variant="h6" noWrap>Pictogram</Typography>
+          </Link>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase />
+            <InputBase placeholder="Search..." classes={{ root: classes.inputRoot, input: classes.inputInput }} inputProps={{ 'aria-label': 'search' }} />
           </div>
           <div className={classes.grow} />
-          <div>
-            <Button>
+          <div className={classes.sectionDesktop}>
+            <Button color="inherit" component={Link} to="/" aria-label="home page">
               <HomeIcon />
               Home
             </Button>
-            <Button>
+            <Button className={classes.subscribedPosts_Btn} component={Link} to="/subscribedPosts" aria-label="subscribed posts">
               <SubscriptionsIcon />
               Subscribed
             </Button>
             {/* <CreatePost /> */}
-            <Button>
+            <Button component={Link} to="/user" aria-label="user profile page" style={{ color: '#ee0000'}} >
               <AccountCircleIcon />
               {/* {name} */}
             </Button>
-            <Button>
+            <Button className={classes.subscribedPosts_Btn} aria-label="log out">
               <LockIcon />
               Logout 
             </Button>
