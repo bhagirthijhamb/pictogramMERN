@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { ObjectId } = mongoose.Schema.Types;
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 // userSchema
 const userSchema = new Schema({
@@ -31,10 +31,10 @@ userSchema.pre('save', async function(next) {
   }
 })
 
-// userSchema.methods.comparePasswords = function(password) {
-//   // return bcrypt.compare(password, this.password)
-//   const user = this;
-//   return bcrypt.compare(password, user.password);
-// }
+userSchema.methods.comparePasswords = function(password) {
+  // return bcrypt.compare(password, this.password)
+  const user = this;
+  return bcrypt.compare(password, user.password);
+}
 
 module.exports = mongoose.model('User', userSchema);

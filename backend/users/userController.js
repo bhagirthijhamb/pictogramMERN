@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('./userModel');
 const { validateSignupData, validateLoginData } = require('./../utils/validators');
+const { findById } = require('./userModel');
 
 const createToken = (user) => {
   const token = jwt.sign(user, process.env.JWT_SECRET);
@@ -49,16 +50,44 @@ module.exports = {
     if(!valid) return res.status(422).json(errors);
 
     try {
-      const user = await User.find({ email: email });
-      
+      const user = await User.findOne({ email: email });
       if(!user){
         res.status(400).json({ message: "Invalid email or password" });
         return;
       } else {
-        const token = createToken({ id: user._id });
-        console.log(token);
-        res.cookie('token', token);
-        res.status(200).send(user);
+        const isMatch = await user.comparePasswords(password);
+        if(!isMatch){
+          res.status(400).json({ message: "Invalid email or password" });
+          return;
+        } else {
+          const token = createToken({ id: user._id });
+          res.cookie('pToken', token);
+          res.status(200).send(user);
+        } 
+      }
+    } catch(err){
+      console.log(err);
+      next(err);
+    }
+  },
+  getMyDetails: async (req, res, next) => {
+    try {
+      // console.log('req.user.id', req.user.id);
+      // console.log('req.user._id', req.user._id);
+      const user = await User.findById(req.user.id);
+      if(user){
+        res.json({ data: user });
+      }
+    } catch(err){
+      console.log(err);
+      res.status(500).json({ message: "Something went wrong"})
+    }
+  },
+  getMyProfile: async (req,res, next) => {
+    try {
+      const user = await (await User.findOne({ _id: req.user._id })).select("-password");
+      if(user){
+        // const userPosts = await Post
       }
     } catch(err){
       console.log(err);

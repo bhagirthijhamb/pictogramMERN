@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 const connectDB = require('./../backend/config/db'); 
 
@@ -8,12 +9,15 @@ dotenv.config();
 connectDB();
 
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 
 // User routes
 const userRoutes = require('./users/userRoutes');
 app.use('/api/users', userRoutes);
 // Post Routes
+const postRoutes = require('./posts/postRoutes');
+app.use('/api/posts', postRoutes);
 
 app.get('/', (req, res) => {
   res.send('API is running...');
