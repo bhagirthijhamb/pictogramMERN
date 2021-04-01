@@ -25,7 +25,8 @@ module.exports = {
       const user = new User(req.body);
       const newUser = await user.save();
       if(newUser){
-        return res.status(201).json(newUser);
+        res.status(201).json(newUser);
+        return
       }
     } catch(err){
       console.log(err);
@@ -91,6 +92,19 @@ module.exports = {
       }
     } catch(err){
       console.log(err);
+    }
+  },
+  logoutUser: async (req, res, next) => {
+    try {
+      const expire = res.cookie('pToken', '', { expires: new Date(0) });
+      if(expire){
+        const clear = await res.clearCookie('pToken');
+        if(clear){
+          res.status(200).json( 'token deleted' );
+        }
+      }
+    } catch(err){
+      console.log(err)
     }
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
 
@@ -18,6 +18,8 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
 import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import LockIcon from '@material-ui/icons/Lock';
+
+import { AppContext } from './../../context/appContext';
 
 const useStyles = makeStyles((theme) => ({
     navContainer: {
@@ -89,7 +91,23 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = (props) => {
   const classes = useStyles();
   const history = useHistory();
-  // const [ state, dispatch ] = useContext(AppContext);
+  const [ state, dispatch ] = useContext(AppContext);
+
+  async function logout (){
+    try {
+      const response = await fetch('/api/users/logout');
+      const json = await response.json();
+      if(response.ok){
+        props.updateUser(undefined)
+        history.push('/login')
+      }
+    } catch(err){
+      console.log(err)
+    }
+  }
+
+  const { user } = state;
+  const { credentials: {name} } = state.user;
 
   return(
     <AppBar>
@@ -117,9 +135,9 @@ const Navbar = (props) => {
             {/* <CreatePost /> */}
             <Button component={Link} to="/user" aria-label="user profile page" style={{ color: '#ee0000'}} >
               <AccountCircleIcon />
-              {/* {name} */}
+              {name}
             </Button>
-            <Button className={classes.subscribedPosts_Btn} aria-label="log out">
+            <Button className={classes.subscribedPosts_Btn} onClick={logout} aria-label="log out">
               <LockIcon />
               Logout 
             </Button>
