@@ -8,9 +8,14 @@ import { BrowserRouter as Router, Route, Switch, Redirect, useHistory } from 're
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
+// App context
+import { AppContextProvider } from './context/appContext';
+
 // Components
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import Signup from './components/pages/Signup';
+import Login from './components/pages/Login';
 
 const theme = createMuiTheme({
   palette: {
@@ -31,6 +36,7 @@ const theme = createMuiTheme({
 })
 
 const Routing = (props) => {
+  console.log('inside routing')
   const history = useHistory();
   const { user, getUser, setUser } = props;
 
@@ -44,25 +50,58 @@ const Routing = (props) => {
 
   return (
     <Switch>
-      <Route>
+      {/* <Route> */}
         {/* <Home>
           
         </Home> */}
+      {/* </Route> */}
+      <Route exact path='/signup'>
+        <Signup getUser={getUser} updateUser={setUser} {...props} />
+      </Route>
+      <Route exact path='/login'>
+        <Login getUser={getUser} {...props} />
       </Route>
     </Switch>
   )
 }
 
 function App() {
+  const [ user, setUser ] = useState(undefined);
+
+  const getUser = useCallback(async function(){
+    try {
+      const response = await fetch('/api/users/me', {
+        headers: {
+          credentials: 'include'
+        }
+      })
+
+      const json = await response.json();
+      if(!response.ok){
+        throw new Error(json.message);
+      }
+      setUser(json.data);
+    } catch(err){
+      setUser(undefined);
+      console.log(err)
+    }
+  }, [])
+
+  useEffect(() => {
+    getUser();
+  }, [getUser])
+
   return (
     <MuiThemeProvider theme={theme}>
-      <Router>
-        <div className="app">
-          <Navbar />
-          <Routing />
-          <Footer />
-        </div>
-      </Router>
+      <AppContextProvider>
+        <Router>
+          <div className="app">
+            {user && <Navbar updateUser={setUser} />}
+            <Routing user={user} setUser={setUser} getUser={getUser} />
+            {user && <Footer />}
+          </div>
+        </Router>
+      </AppContextProvider>
     </MuiThemeProvider>
   );
 }
