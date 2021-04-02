@@ -49,5 +49,37 @@ module.exports = {
     } catch(err){
       console.log(err);
     }
+  },
+  likePost: async (req, res, next) => {
+    try {
+      const likedPost = await Post.findByIdAndUpdate(req.body.postId, {
+        $push: { likes: req.user._id }
+      }, {
+        new: true
+      }).populate('author', '_id name').exec()
+
+      if(likedPost){
+        return res.json(likedPost);
+      }
+    } catch(err){
+      console.log(err);
+      res.status(422).json({ error: err })
+    }
+  },
+  unlikePost: async (req, res, next) => {
+    try {
+      const unlikedPost = await Post.findByIdAndUpdate(req.body.postId, {
+        $pull: { likes: req.user._id }
+      }, {
+        new: true
+      }).populate('author', '_id name').exec()
+
+      if(unlikedPost){
+        return res.json(unlikedPost);
+      }
+    } catch(err){
+      console.log(err);
+      res.status(422).json({ error: err })
+    }
   }
 }

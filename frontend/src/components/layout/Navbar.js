@@ -20,6 +20,7 @@ import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import LockIcon from '@material-ui/icons/Lock';
 
 import { AppContext } from './../../context/appContext';
+import CreatePost from './../CreatePost';
 
 const useStyles = makeStyles((theme) => ({
     navContainer: {
@@ -132,7 +133,7 @@ const Navbar = (props) => {
               <SubscriptionsIcon />
               Subscribed
             </Button>
-            {/* <CreatePost /> */}
+            <CreatePost />
             <Button component={Link} to="/user" aria-label="user profile page" style={{ color: '#ee0000'}} >
               <AccountCircleIcon />
               {name}

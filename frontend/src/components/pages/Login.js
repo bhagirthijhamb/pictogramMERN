@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory } from 'react-router-dom';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 
-import { AppContext } from '../../context/appContext';
+import { AppContext } from './../../context/appContext';
 import { useContext, useEffect, useCallback } from 'react';
 import { SET_ERRORS, LOADING_UI, CLEAR_ERRORS, SET_USER } from '../../context/types';
 

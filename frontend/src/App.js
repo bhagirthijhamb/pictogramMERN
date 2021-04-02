@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -16,6 +15,8 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
+import Home from './components/pages/Home';
+import PostList from './components/PostList';
 
 const theme = createMuiTheme({
   palette: {
@@ -50,11 +51,11 @@ const Routing = (props) => {
 
   return (
     <Switch>
-      {/* <Route> */}
-        {/* <Home>
-          
-        </Home> */}
-      {/* </Route> */}
+      <Route exact path='/'>
+        <Home user={user} {...props}>
+          <PostList />
+        </Home>
+      </Route>
       <Route exact path='/signup'>
         <Signup getUser={getUser} updateUser={setUser} {...props} />
       </Route>
