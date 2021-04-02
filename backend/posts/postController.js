@@ -104,19 +104,36 @@ module.exports = {
   },
   deletePost: async (req, res, next) => {
    try {
-      const postToDelete = await (Post.findOne({ _id: req.params.postid})).populated('author', '_id').exec()
+      // const postToDelete = await Post.findOne({ _id: req.params.postId })
+      const postToDelete = await Post.findOne({ _id: req.params.postId }).populate('author', '_id').exec();
 
       if(!postToDelete){
         res.status(422).json({ error: 'post not found' });
+        return;
       }
 
       if(postToDelete.author._id.toString() === req.user._id.toString()){
         const result = await postToDelete.remove();
         if(result){
-          res.josn(result);
+          res.json(result);
         }
       }
    } catch(err){
+      console.log(err);
+    }
+  },
+  deleteComment: async (req, res, next) => {
+    try {
+      const commentToDelete = await Post.findByIdAndUpdate(req.params.postId, {
+        $pull: { comments: { _id: req.params.commentId }}
+      }, {
+        new: true
+      }).populate('comments.postedBy', '_id name').populate('author', '_id name').exec()
+
+      if(commentToDelete){
+        return res.json(commentToDelete);
+      }
+    } catch(err){
       console.log(err);
     }
   }
