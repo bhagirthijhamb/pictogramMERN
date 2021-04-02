@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('./userModel');
+const Post = require('./../posts/postModel');
 const { validateSignupData, validateLoginData } = require('./../utils/validators');
 const { findById } = require('./userModel');
 
@@ -92,6 +93,19 @@ module.exports = {
       }
     } catch(err){
       console.log(err);
+    }
+  },
+  getUserDetails: async (req, res, next) => {
+    try {
+      const user = await User.findOne({ _id: req.params.userId }).select('-password');
+      if(user){
+        const userPosts = await Post.find({ author: req.params.userId }).populate('author', '_id name').exec();
+        if(userPosts){
+          res.status(200).json({ user, userPosts })
+        }
+      }
+    } catch(err){
+      res.status(404).json({ error: err })
     }
   },
   logoutUser: async (req, res, next) => {
