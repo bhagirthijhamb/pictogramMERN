@@ -81,5 +81,43 @@ module.exports = {
       console.log(err);
       res.status(422).json({ error: err })
     }
+  },
+  commentPost: async (req, res, next) => {
+    const comment = {
+      text: req.body.text,
+      postedBy: req.user._id
+    }
+    try {
+      const commentedPost = await Post.findByIdAndUpdate(req.body.postId, {
+        $push: { comments: comment }
+      }, {
+        new: true
+      }).populate('comments.postedBy', '_id name').populate('author', '_id name').exec()
+
+      if(commentedPost){
+        return res.json(commentedPost);
+      }
+    } catch(err){
+      console.log(err);
+      res.status(422).json({ error: err })
+    }
+  },
+  deletePost: async (req, res, next) => {
+   try {
+      const postToDelete = await (Post.findOne({ _id: req.params.postid})).populated('author', '_id').exec()
+
+      if(!postToDelete){
+        res.status(422).json({ error: 'post not found' });
+      }
+
+      if(postToDelete.author._id.toString() === req.user._id.toString()){
+        const result = await postToDelete.remove();
+        if(result){
+          res.josn(result);
+        }
+      }
+   } catch(err){
+      console.log(err);
+    }
   }
 }

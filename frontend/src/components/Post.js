@@ -181,7 +181,7 @@ const Post = (props) => {
                 }
             })
             const result = await response.json();
-            console.log(result);
+            // console.log(result);
             if(result){
                 dispatch({
                     type: DELETE_POST,
@@ -202,7 +202,7 @@ const Post = (props) => {
                 }
             })
             const result = await response.json();
-            console.log(result);
+            // console.log(result);
             if(result){
                 dispatch({
                     type: DELETE_COMMENT,
