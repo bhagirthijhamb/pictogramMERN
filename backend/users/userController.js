@@ -189,7 +189,7 @@ module.exports = {
           followers: updatedUserProfile.followers,
           following: updatedUserProfile.following
         }
-        res.json(uer);
+        res.json(user);
       }
     } catch(err){
       console.log(err);

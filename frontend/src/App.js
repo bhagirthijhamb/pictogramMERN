@@ -19,6 +19,7 @@ import Home from './components/pages/Home';
 import PostList from './components/PostList';
 import User from './components/User';
 import OtherUser from './components/OtherUser';
+import EditUser from './components/EditUser';
 
 const theme = createMuiTheme({
   palette: {
@@ -66,6 +67,7 @@ const Routing = (props) => {
       </Route>
       <Route exact path='/user' component={User} />
       <Route exact path='/user/:userId' component={OtherUser} />
+      <Route exact path='/editProfile' component={EditUser} />
     </Switch>
   )
 }
