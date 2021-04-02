@@ -17,6 +17,7 @@ import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import PostList from './components/PostList';
+import User from './components/User';
 import OtherUser from './components/OtherUser';
 
 const theme = createMuiTheme({
@@ -63,6 +64,7 @@ const Routing = (props) => {
       <Route exact path='/login'>
         <Login getUser={getUser} {...props} />
       </Route>
+      <Route exact path='/user' component={User} />
       <Route exact path='/user/:userId' component={OtherUser} />
     </Switch>
   )

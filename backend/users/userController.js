@@ -87,12 +87,16 @@ module.exports = {
   },
   getMyProfile: async (req,res, next) => {
     try {
-      const user = await (await User.findOne({ _id: req.user._id })).select("-password");
+      const user = await User.findOne({ _id: req.user._id }).select("-password");
       if(user){
-        // const userPosts = await Post
+        const userPosts = await Post.find({ author: user._id }).populate('author', '_id name').exec();
+        if(userPosts){
+          res.status(200).json({ user, userPosts })
+        }
       }
     } catch(err){
       console.log(err);
+      res.status(404).json({ error: err })
     }
   },
   getUserDetails: async (req, res, next) => {
@@ -163,6 +167,32 @@ module.exports = {
     } catch(err){
       console.log(err);
       return res.status(422).json({ eror: err })
+    }
+  },
+  editUserProfile: async (req, res, next) => {
+    try {
+      const { imageUrl, website, bio } = req.body;
+      const updatedUserProfile = await User.findByIdAndUpdate(req.user.id, {
+        $set: { imageUrl, website, bio }
+      }, {
+        new: true
+      })
+
+      if(updatedUserProfile){
+        const user =  {
+          _id: updatedUserProfile._id,
+          name: updatedUserProfile.name,
+          email: updatedUserProfile.email,
+          imageUrl: updatedUserProfile.imageUrl,
+          bio: updatedUserProfile.bio,
+          website: updatedUserProfile.website,
+          followers: updatedUserProfile.followers,
+          following: updatedUserProfile.following
+        }
+        res.json(uer);
+      }
+    } catch(err){
+      console.log(err);
     }
   },
   logoutUser: async (req, res, next) => {
