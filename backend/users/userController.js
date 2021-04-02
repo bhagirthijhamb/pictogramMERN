@@ -108,6 +108,63 @@ module.exports = {
       res.status(404).json({ error: err })
     }
   },
+  followUser: async(req, res, next) => {
+    try {
+      const followedUser = await User.findByIdAndUpdate(req.body.followId, {
+        $push: { followers: req.user.id }
+      }, {
+        new: true
+      })
+      if(followedUser){
+        try {
+          const followingUser = await User.findByIdAndUpdate(req.user.id, {
+            $push: { following: req.body.followId }
+          }, {
+            new: true
+          }).select('-password')
+
+          if(followingUser){
+            res.json({ followedUser, followingUser });
+          }
+        } catch(err){
+          console.log(err);
+          return res.status(422).json({ error: err });
+        }
+      }
+    } catch (err){
+      console.log(err);
+      return res.status(422).json({ error: err })
+    }
+  },
+  unfollowUser: async(req, res, next) => {
+    try {
+      const followedUser = await User.findByIdAndUpdate(req.body.unfollowId, {
+        $pull: { followers: req.user.id }
+      }, {
+        new: true
+      }).select('-password')
+
+      if(followedUser){
+        try {
+          const followingUser = await User.findByIdAndUpdate(req.user.id, {
+            $pull: { following: req.body.unfollowId }
+          }, {
+            new: true
+          })
+
+          if(followingUser){
+            res.json({ followedUser, followingUser })
+          }
+        } catch(err){
+          console.log(err);
+          return res.status(422).json({ error: err })
+        }
+      }
+    } catch(err){
+      console.log(err);
+      return res.status(422).json({ eror: err })
+    }
+  },
   logoutUser: async (req, res, next) => {
     try {
       const expire = res.cookie('pToken', '', { expires: new Date(0) });
