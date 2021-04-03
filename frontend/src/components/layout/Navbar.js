@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
         width: "1000px",
         display: 'flex',
         alignItems: "center",
-        margin: "0 auto"
+        margin: "0 auto",
+        // marginBottom: '2rem'
     },
     grow: {
         flexGrow: 1,

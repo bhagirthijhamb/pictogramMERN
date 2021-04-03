@@ -17,6 +17,7 @@ import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import PostList from './components/postComponents/PostList';
+import FollowSuggestions from './components/pages/FollowSuggestions';
 import User from './components/userComponents/User';
 import OtherUser from './components/userComponents/OtherUser';
 import EditUser from './components/userComponents/EditUser';
@@ -57,7 +58,8 @@ const Routing = (props) => {
     <Switch>
       <Route exact path='/'>
         <Home user={user} {...props}>
-          <PostList />
+          <PostList style={{ marginTop: '1rem' }} />
+          <FollowSuggestions />
         </Home>
       </Route>
       <Route exact path='/signup'>

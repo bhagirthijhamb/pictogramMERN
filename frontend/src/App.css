@@ -87,3 +87,9 @@ img {
     align-items: center;
     justify-content: space-around;
 }
+
+.MuiGrid-spacing-xs-4 > .MuiGrid-item {
+    padding: 16px;
+    margin-top: 10px;
+}
+
