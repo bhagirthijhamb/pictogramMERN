@@ -21,8 +21,8 @@ import Input from '@material-ui/core/Input';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 // Context
-import { AppContext } from '../context/appContext';
-import { LIKE_POST, SUBMIT_COMMENT, UNLIKE_POST, DELETE_POST, DELETE_COMMENT } from './../context/types';
+import { AppContext } from './../../context/appContext';
+import { LIKE_POST, SUBMIT_COMMENT, UNLIKE_POST, DELETE_POST, DELETE_COMMENT } from '../../context/types';
 
 // Icons
 import ChatIcon from '@material-ui/icons/Chat';

@@ -12,8 +12,8 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 //
 import CloseIcon from '@material-ui/icons/Close';
-import { SET_ERRORS, LOADING_UI, POST_POST, CLEAR_ERRORS, LOADING_DATA } from './../context/types';
-import { AppContext } from './../context/appContext';
+import { SET_ERRORS, LOADING_UI, POST_POST, CLEAR_ERRORS, LOADING_DATA } from '../../context/types';
+import { AppContext } from './../../context/appContext';
 import { useContext, useEffect, useCallback } from 'react';
 
 const useStyles = makeStyles((theme) => ({

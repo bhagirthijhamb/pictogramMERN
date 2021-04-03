@@ -5,8 +5,8 @@ import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-import { AppContext } from './../context/appContext';
-import { SET_USER, SET_USER_POSTS } from './../context/types';
+import { AppContext } from './../../context/appContext';
+import { SET_USER, SET_USER_POSTS } from '../../context/types';
 
 const useStyles = makeStyles(theme => ({
   profilePageTop: {

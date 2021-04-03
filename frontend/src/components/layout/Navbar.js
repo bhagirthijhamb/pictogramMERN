@@ -20,7 +20,7 @@ import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import LockIcon from '@material-ui/icons/Lock';
 
 import { AppContext } from './../../context/appContext';
-import CreatePost from './../CreatePost';
+import CreatePost from '../postComponents/CreatePost';
 
 const useStyles = makeStyles((theme) => ({
     navContainer: {

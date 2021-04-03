@@ -50,6 +50,18 @@ module.exports = {
       console.log(err);
     }
   },
+  getSubscribedPosts: async (req, res, next) => {
+    try {
+      const posts = await Post.find({ author: { $in: req.user.following }}).populate('author', '_id name imageUrl').populate('comments.postedy', '_id name');
+
+      if(posts){
+        return res.status(200).json(posts)
+      }
+    } catch(err){
+      console.log(err);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
   likePost: async (req, res, next) => {
     try {
       const likedPost = await Post.findByIdAndUpdate(req.body.postId, {

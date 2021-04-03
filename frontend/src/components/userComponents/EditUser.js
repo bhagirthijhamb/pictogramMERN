@@ -1,13 +1,13 @@
 import Grid from '@material-ui/core/Grid';
-import { AppContext } from './../context/appContext';
 import { useState, useContext, useEffect, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Link, useHistory } from 'react-router-dom';
-
 import { Typography } from '@material-ui/core';
-import { SET_USER, SET_USER_POSTS } from './../context/types';
 import { Button } from '@material-ui/core';
+
+import { AppContext } from './../../context/appContext';
+import { SET_USER, SET_USER_POSTS } from '../../context/types';
 
 const useStyles = makeStyles(theme => ({
   editProfile: {

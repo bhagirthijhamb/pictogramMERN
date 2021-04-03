@@ -16,10 +16,11 @@ import Footer from './components/layout/Footer';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
-import PostList from './components/PostList';
-import User from './components/User';
-import OtherUser from './components/OtherUser';
-import EditUser from './components/EditUser';
+import PostList from './components/postComponents/PostList';
+import User from './components/userComponents/User';
+import OtherUser from './components/userComponents/OtherUser';
+import EditUser from './components/userComponents/EditUser';
+import SubscribedPosts from './components/pages/SubscribedPosts';
 
 const theme = createMuiTheme({
   palette: {
@@ -68,6 +69,7 @@ const Routing = (props) => {
       <Route exact path='/user' component={User} />
       <Route exact path='/user/:userId' component={OtherUser} />
       <Route exact path='/editProfile' component={EditUser} />
+      <Route exact path='/subscribedPosts' component={SubscribedPosts} />
     </Switch>
   )
 }

@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
-import { AppContext } from './../context/appContext';
-import { SET_OTHER_USER, FOLLOW_USER, UNFOLLOW_USER } from './../context/types';
+import { AppContext } from './../../context/appContext';
+import { SET_OTHER_USER, FOLLOW_USER, UNFOLLOW_USER } from '../../context/types';
 
 
 const useStyles = makeStyles(theme => ({

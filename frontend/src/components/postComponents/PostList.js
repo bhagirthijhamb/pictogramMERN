@@ -1,7 +1,7 @@
 import { useContext, useEffect, useCallback } from 'react';
 import Post from './Post';
-import { LOADING_DATA, SET_POSTS, LOADING_USER, SET_USER } from './../context/types';
-import { AppContext } from './../context/appContext';
+import { LOADING_DATA, SET_POSTS, LOADING_USER, SET_USER } from '../../context/types';
+import { AppContext } from './../../context/appContext';
 
 const PostList = (props) => {
     const [state, dispatch] = useContext(AppContext); 
