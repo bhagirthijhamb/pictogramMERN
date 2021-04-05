@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2, 4),
         marginTop: 'auto',
         backgroundColor: theme.palette.primary.main,
-        position: 'fixed',
+        // position: 'fixed',
         left:0,
         bottom: 0,
         width: '100%',
